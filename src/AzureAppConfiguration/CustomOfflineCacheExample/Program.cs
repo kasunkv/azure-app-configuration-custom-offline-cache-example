@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using CustomOfflineCacheExample.Cache;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 
@@ -20,7 +21,8 @@ namespace CustomOfflineCacheExample
                     config.AddAzureAppConfiguration(options =>
                     {
                         options
-                            .Connect(settings["ConnectionStrings:AppConfiguration"]);
+                            .Connect(settings["ConnectionStrings:AppConfiguration"])
+                            .SetOfflineCache(new LocalFileOfflineCache(context.HostingEnvironment));
                     });
 
                 })
